@@ -1,0 +1,36 @@
+{
+    "products": [
+        {
+            "id": 1,
+            "name": "iPhone 12 Pro",
+            "desc": "Apple iPhone 12 Pro",
+            "price": 666,
+            "color": "#33505a",
+            "image": "https://static.techspot.com/images/products/2020/smartphones/org/2020-11-06-product-5.png"
+        },
+        {
+            "id": 2,
+            "name": "Macbook Pro",
+            "desc": "Apple Macbook Pro",
+            "price": 999,
+            "color": "#33505a",
+            "image": "https://www.apple.com/newsroom/images/product/mac/standard/Apple_16-inch-MacBook-Pro_111319_big.jpg.large.jpg"
+        },
+        {
+            "id": 3,
+            "name": "Pixel 6",
+            "desc": " Google Pixel 5 5G Sorta Sage",
+            "price": 555,
+            "color": "#33505a",
+            "image": "https://lh3.googleusercontent.com/xY8I49bm6q-VPUACVufC8efqOBCFFVvUK-_xlh9w9GxsiHETdvdIVUl6baTXejWvNPPMaRWCmQ7xzogtCrLunvEpsc65fZlW0WQ"
+        },
+        {
+            "id": 4,
+            "name": "Mi 11 Ultra",
+            "desc": "Xiaomi Mi 11 Ultra",
+            "price": 777,
+            "color": "#33505a",
+            "image": "https://i.gadgets360cdn.com/products/large/mi-11-ultra-db-800x800-1617265287.jpg"
+        }
+    ]
+}
