@@ -1,4 +1,4 @@
-// ignore_for_file: prefer_const_constructors, use_key_in_widget_constructors, unused_local_variable
+// ignore_for_file: prefer_const_constructors, use_key_in_widget_constructors, unused_local_variable, deprecated_member_use
 
 import 'dart:convert';
 
@@ -43,11 +43,11 @@ class _HomePageState extends State<HomePage> {
     // final dummyList = List.generate(20, (index) => CatalogModel.items[0]);
 
     return Scaffold(
-        backgroundColor: MyTheme.creamColor,
+        backgroundColor: context.canvasColor,
         floatingActionButton: FloatingActionButton(
           onPressed: () => Navigator.pushNamed(context, MyRoutes.cartRoute),
-          backgroundColor: MyTheme.darkBluishColor,
-          child: Icon(CupertinoIcons.cart),
+          backgroundColor: context.theme.buttonColor,
+          child: Icon(CupertinoIcons.cart, color: Colors.white,),
         ),
         body: SafeArea(
           child: Container(
@@ -128,7 +128,7 @@ class CatalogHeader extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        "Catalog App".text.xl5.bold.color(MyTheme.darkBluishColor).make(),
+        "Catalog App".text.xl5.bold.color(context.theme.buttonColor).make(),
         "Trending Products".text.xl2.make(),
       ],
     );
@@ -170,7 +170,7 @@ class CatalogItem extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            catalog.name.text.lg.color(MyTheme.darkBluishColor).bold.make(),
+            catalog.name.text.lg.color(context.theme.accentColor).bold.make(),
             catalog.desc.text.textStyle(context.captionStyle).make(),
             // 10.heightBox,
             ButtonBar(
@@ -181,7 +181,7 @@ class CatalogItem extends StatelessWidget {
                         onPressed: () {},
                         style: ButtonStyle(
                             backgroundColor: MaterialStateProperty.all(
-                                MyTheme.darkBluishColor)),
+                                context.theme.buttonColor)),
                         child: "Buy".text.make())
                     .px8()
               ],
@@ -189,7 +189,7 @@ class CatalogItem extends StatelessWidget {
           ],
         ))
       ],
-    )).white.rounded.square(150).make().py16();
+    )).color(context.cardColor).rounded.square(150).make().py16();
   }
 }
 
@@ -203,7 +203,7 @@ class CatalogImage extends StatelessWidget {
         .box
         .rounded
         .p8
-        .color(MyTheme.creamColor)
+        .color(context.canvasColor)
         .make()
         .p16()
         .w40(context);

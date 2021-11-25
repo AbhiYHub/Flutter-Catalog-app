@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_catalog/utils/routes.dart';
+import 'package:velocity_x/velocity_x.dart';
 
 class LoginPage extends StatefulWidget {
   @override
@@ -17,23 +18,22 @@ class _LoginPageState extends State<LoginPage> {
 
   moveToHome(BuildContext context) async {
     if (_formKey.currentState!.validate()) {
-      
-    setState(() {
-      onClick = true;
-    });
+      setState(() {
+        onClick = true;
+      });
 
-    await Future.delayed(Duration(seconds: 1));
-    await Navigator.pushNamed(context, MyRoutes.homeRoute);
-    setState(() {
-      onClick = false;
-    });
+      await Future.delayed(Duration(seconds: 1));
+      await Navigator.pushNamed(context, MyRoutes.homeRoute);
+      setState(() {
+        onClick = false;
+      });
     }
   }
 
   @override
   Widget build(BuildContext context) {
     return Material(
-      color: Colors.white,
+      color: context.canvasColor,
       child: SingleChildScrollView(
         child: Form(
           key: _formKey,
@@ -57,8 +57,8 @@ class _LoginPageState extends State<LoginPage> {
                 height: 20.0,
               ),
               Padding(
-                padding:
-                    const EdgeInsets.symmetric(vertical: 16.0, horizontal: 32.0),
+                padding: const EdgeInsets.symmetric(
+                    vertical: 16.0, horizontal: 32.0),
                 child: Column(
                   children: [
                     TextFormField(
@@ -66,11 +66,11 @@ class _LoginPageState extends State<LoginPage> {
                         hintText: "Enter Username",
                         labelText: "Username",
                       ),
-                      validator: (value){
-                        if(value!.isEmpty){
+                      validator: (value) {
+                        if (value!.isEmpty) {
                           return "Username cannot be empty";
                         }
-        
+
                         return null;
                       },
                       onChanged: (value) {
@@ -84,10 +84,10 @@ class _LoginPageState extends State<LoginPage> {
                         hintText: "Enter Password",
                         labelText: "Password",
                       ),
-                      validator: (value){
-                        if(value!.isEmpty){
+                      validator: (value) {
+                        if (value!.isEmpty) {
                           return "Password cannot be empty";
-                        } else if (value.length < 6){
+                        } else if (value.length < 6) {
                           return "Password length cannot be less than 6";
                         }
                         return null;
@@ -100,7 +100,7 @@ class _LoginPageState extends State<LoginPage> {
                 height: 40.0,
               ),
               Material(
-                color: Colors.deepPurple,
+                color: context.theme.buttonColor,
                 borderRadius: BorderRadius.circular(onClick ? 50 : 8),
                 child: InkWell(
                   onTap: () => moveToHome(context),
