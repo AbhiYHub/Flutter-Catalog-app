@@ -6,12 +6,12 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
+import 'package:flutter_catalog/core/store.dart';
+import 'package:flutter_catalog/models/cart.dart';
 import 'package:flutter_catalog/models/catalog.dart';
 import 'package:flutter_catalog/pages/home_detail_page.dart';
 import 'package:flutter_catalog/utils/routes.dart';
-import 'package:flutter_catalog/widgets/drawer.dart';
-import 'package:flutter_catalog/widgets/item_widget.dart';
-import 'package:flutter_catalog/widgets/themes.dart';
+import 'package:flutter_catalog/widgets/add_to_cart.dart';
 import 'package:velocity_x/velocity_x.dart';
 
 class HomePage extends StatefulWidget {
@@ -41,13 +41,19 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     // final dummyList = List.generate(20, (index) => CatalogModel.items[0]);
-
+    final _cart = (VxState.store as MyStore).cart;
     return Scaffold(
         backgroundColor: context.canvasColor,
-        floatingActionButton: FloatingActionButton(
-          onPressed: () => Navigator.pushNamed(context, MyRoutes.cartRoute),
-          backgroundColor: context.theme.buttonColor,
-          child: Icon(CupertinoIcons.cart, color: Colors.white,),
+        floatingActionButton: VxBuilder(
+          mutations: {AddMutation, RemoveMutation},
+          builder: (context, _) => FloatingActionButton(
+            onPressed: () => Navigator.pushNamed(context, MyRoutes.cartRoute),
+            backgroundColor: context.theme.buttonColor,
+            child: Icon(
+              CupertinoIcons.cart,
+              color: Colors.white,
+            ),
+          ).badge(size: 22, count: _cart.items.length, textStyle: TextStyle(fontWeight: FontWeight.bold, color: Colors.white)),
         ),
         body: SafeArea(
           child: Container(
@@ -56,7 +62,7 @@ class _HomePageState extends State<HomePage> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 CatalogHeader(),
-                if (CatalogModel.items.isNotEmpty)
+                if (CatalogModel.items!.isNotEmpty)
                   CatalogList().expand()
                 else
                   CircularProgressIndicator().centered().expand(),
@@ -140,9 +146,9 @@ class CatalogList extends StatelessWidget {
   Widget build(BuildContext context) {
     return ListView.builder(
         shrinkWrap: true,
-        itemCount: CatalogModel.items.length,
+        itemCount: CatalogModel.items!.length,
         itemBuilder: (context, index) {
-          final catalog = CatalogModel.items[index];
+          final catalog = CatalogModel.items![index];
           return InkWell(
               onTap: () => Navigator.push(
                   context,
@@ -177,13 +183,7 @@ class CatalogItem extends StatelessWidget {
               alignment: MainAxisAlignment.spaceBetween,
               children: [
                 "\$${catalog.price}".text.bold.xl.make(),
-                ElevatedButton(
-                        onPressed: () {},
-                        style: ButtonStyle(
-                            backgroundColor: MaterialStateProperty.all(
-                                context.theme.buttonColor)),
-                        child: "Buy".text.make())
-                    .px8()
+                AddToCart(catalog: catalog).px8()
               ],
             )
           ],
@@ -192,6 +192,7 @@ class CatalogItem extends StatelessWidget {
     )).color(context.cardColor).rounded.square(150).make().py16();
   }
 }
+
 
 class CatalogImage extends StatelessWidget {
   final String image;

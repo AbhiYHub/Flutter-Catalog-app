@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_catalog/models/catalog.dart';
+import 'package:flutter_catalog/widgets/add_to_cart.dart';
 import 'package:flutter_catalog/widgets/themes.dart';
 import 'package:velocity_x/velocity_x.dart';
 
@@ -21,14 +22,7 @@ class HomeDetailPage extends StatelessWidget {
         alignment: MainAxisAlignment.spaceBetween,
         children: [
           "\$${catalog.price}".text.bold.xl3.make().pLTRB(12.0, 0, 0, 0),
-          ElevatedButton(
-                  onPressed: () {},
-                  style: ButtonStyle(
-                      backgroundColor:
-                          MaterialStateProperty.all(context.theme.buttonColor)),
-                  child: "Buy".text.make())
-              .wh(100, 40)
-              .px8()
+          AddToCart(catalog: catalog).wh(100, 40).px8()
         ],
       ).p12(),
       body: SafeArea(
@@ -56,7 +50,11 @@ class HomeDetailPage extends StatelessWidget {
                           catalog.desc.text.xl
                               .textStyle(context.captionStyle)
                               .make(),
-                           "Jeff Bezos founded Amazon from his garage in Bellevue, Washington,[13] on July 5, 1994. It started as an online marketplace for books but expanded to sell electronics, software, video games, apparel, furniture, food, toys, and jewelry. In 2015, Amazon surpassed Walmart as the most.".text.textStyle(context.captionStyle).make().p16()
+                          "Jeff Bezos founded Amazon from his garage in Bellevue, Washington,[13] on July 5, 1994. It started as an online marketplace for books but expanded to sell electronics, software, video games, apparel, furniture, food, toys, and jewelry. In 2015, Amazon surpassed Walmart as the most."
+                              .text
+                              .textStyle(context.captionStyle)
+                              .make()
+                              .p16()
                         ],
                       ).py64(),
                     )))
